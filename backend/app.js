@@ -7,6 +7,7 @@ import notFound from "./middlewares/notFound.js";
 
 // import routes
 import users from "./routes/user.router.js";
+import authRoutes from "./routes/authRoutes.js";
 
 // essentials
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", users);
+app.use("/auth",authRoutes )
 
 app.use(notFound);
 
