@@ -102,6 +102,13 @@ export default function Login() {
                             variant="gradient"
                             gradient={{ from: 'red', to: 'yellow', deg: 60 }}
                             type="submit">Log In</Button>
+<Button
+    variant="gradient"
+    gradient={{ from: 'red', to: 'yellow', deg: 60 }}
+    onClick={() => navigate('/dashboard')}
+>
+    Dashboard
+</Button>
                     </Group>
                 </form>
 
