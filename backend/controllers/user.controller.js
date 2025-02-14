@@ -10,17 +10,17 @@ class UserController {
    */
   static async registerUser(userData) {
     const { name, email, password, oauthProvider, oauthId, role } = userData;
-  
+
     try {
       // Check if user already exists
       let existingUser = await User.findOne({ email });
-  
+
       if (existingUser) {
         throw new Error("User already exists");
       }
-  
+
       let hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
-  
+
       // Create new user
       let newUser = new User({
         name,
@@ -30,14 +30,14 @@ class UserController {
         oauthId,
         role,
       });
-  
+
       await newUser.save();
       return { success: true, message: "User registered successfully" };
     } catch (error) {
       throw new Error(error.message);
     }
   }
-  
+
 
   /**
    * @desc Login a user (Password-based)
@@ -72,33 +72,33 @@ class UserController {
    */
   static async loginWithOAuth(profile) {
     try {
-        const { name, email, oauthProvider, oauthId } = profile;
+      const { name, email, oauthProvider, oauthId } = profile;
 
-        let user = await User.findOne({ email });
+      let user = await User.findOne({ email });
 
-        if (!user) {
-            user = new User({
-                name: profile.name,
-                email: profile.email,
-                oauthProvider: "google",  // This is crucial
-                oauthId: profile.id,      // Store Google OAuth ID
-                role: "contestant"        // You can set a default role
-            });
-            await user.save();
-        }
+      if (!user) {
+        user = new User({
+          name: profile.name,
+          email: profile.email,
+          oauthProvider: "google",  // This is crucial
+          oauthId: profile.id,      // Store Google OAuth ID
+          role: "contestant"        // You can set a default role
+        });
+        await user.save();
+      }
 
-        const token = jwt.sign(
-            { id: user._id, role: user.role },
-            JWT_SECRET,
-            { expiresIn: "1d" }
-        );
+      const token = jwt.sign(
+        { id: user._id, role: user.role },
+        JWT_SECRET,
+        { expiresIn: "1d" }
+      );
 
-        // Return the token and user object, indicating successful login
-        return { success: true, token, user, message: "Login successful!" };
+      // Return the token and user object, indicating successful login
+      return { success: true, token, user, message: "Login successful!" };
     } catch (error) {
-        throw new Error(error.message);
+      throw new Error(error.message);
     }
-}
+  }
 
 
 }
