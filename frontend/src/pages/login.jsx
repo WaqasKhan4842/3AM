@@ -1,18 +1,8 @@
 import { useForm } from '@mantine/form';
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
-
-import {
-    createStyles,
-    TextInput,
-    PasswordInput,
-    Text,
-    Paper,
-    Group,
-    Button,
-    Anchor,
-    Stack,
-} from '@mantine/core';
+import { createStyles, TextInput, PasswordInput, Text, Paper, Group, Button, Anchor, Stack } from '@mantine/core';
+import { FaGoogle, FaFacebook } from 'react-icons/fa'; // Importing icons from react-icons
 
 const useStyles = createStyles(() => ({
     wrapper: {
@@ -25,14 +15,13 @@ const useStyles = createStyles(() => ({
         marginTop: '10%',
 
         [`@media (max-width: 600px)`]: {
-            width: '90%'
+            width: '90%',
         },
-    }
-
-}))
+    },
+}));
 
 export default function Login() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const form = useForm({
         initialValues: {
             email: '',
@@ -46,10 +35,20 @@ export default function Login() {
     });
 
     function register() {
-        navigate('/register')
+        navigate('/register');
     }
 
     const { classes } = useStyles();
+
+    const handleGoogleLogin = () => {
+        // Add your Google login logic here
+        alert('Google login clicked');
+    };
+
+    const handleFacebookLogin = () => {
+        // Add your Facebook login logic here
+        alert('Facebook login clicked');
+    };
 
     return (
         <div className={classes.wrapper}>
@@ -58,19 +57,19 @@ export default function Login() {
                     LogIn
                 </Text>
 
-                <form onSubmit={form.onSubmit(async (data) => { 
+                <form onSubmit={form.onSubmit(async (data) => {
                     await AuthService.login(data).then((res) => {
-                        let user = JSON.stringify(res.user)
-                        window.localStorage.setItem("user", user)
+                        let user = JSON.stringify(res.user);
+                        window.localStorage.setItem("user", user);
 
-                        let token = res.token
-                        window.localStorage.setItem("token", token)
-                        navigate('/')
-                    }).catch(e => {
-                        console.log(e)
-                        alert("Wrong Password?")
-                    })
-                 })}>
+                        let token = res.token;
+                        window.localStorage.setItem("token", token);
+                        navigate('/');
+                    }).catch((e) => {
+                        console.log(e);
+                        alert("Wrong Password?");
+                    });
+                })}>
                     <Stack>
                         <TextInput
                             required
@@ -105,6 +104,27 @@ export default function Login() {
                             type="submit">Log In</Button>
                     </Group>
                 </form>
+
+                {/* Social login buttons */}
+                <Group position="center" mt="md">
+                    <Button
+                        leftIcon={<FaGoogle />}
+                        color="red"
+                        onClick={handleGoogleLogin}
+                        variant="light"
+                    >
+                        Login with Google
+                    </Button>
+
+                    <Button
+                        leftIcon={<FaFacebook />}
+                        color="blue"
+                        onClick={handleFacebookLogin}
+                        variant="light"
+                    >
+                        Login with Facebook
+                    </Button>
+                </Group>
             </Paper>
         </div>
     );

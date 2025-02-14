@@ -20,12 +20,12 @@ export default function Home() {
     return (
         <div className={classes.wrapper}>
             <div className={classes.body}>
-                <Title className={classes.title}>Hackathon Starter</Title>
+                <Title className={classes.title}>Online Singing Competition Management System</Title>
                 <Text weight={500} size="lg" mb={5}>
-                    <code>Author: <a className={classes.title} href="https://github.com/ujjwal-kr">@ujjwal-kr</a></code>
+                    <code>Authors: <a className={classes.title} href="https://github.com/umair228/3AM/">Umair, Waqas, Umar</a></code>
                 </Text>
                 <Text size="md" color="dimmed">
-                    <code>A full stack JavaScript template [MERN] to quickly get started on a hackathon or some equivalent business you are up to. With features like signin and user registration built in. Read the readme for the list of packages included.</code>
+                    <code>3AM</code>
                 </Text>
                 <br />
                 {user ? 

@@ -1,18 +1,7 @@
 import { useForm } from '@mantine/form';
-import { useNavigate } from "react-router-dom";
-import AuthService from "../services/auth.service";
-
-import {
-    createStyles,
-    TextInput,
-    PasswordInput,
-    Text,
-    Paper,
-    Group,
-    Button,
-    Anchor,
-    Stack,
-} from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/auth.service';
+import { createStyles, TextInput, PasswordInput, Text, Paper, Group, Button, Stack, Anchor } from '@mantine/core';
 
 const useStyles = createStyles(() => ({
     wrapper: {
@@ -23,21 +12,19 @@ const useStyles = createStyles(() => ({
     paper: {
         width: '40%',
         marginTop: '10%',
-
         [`@media (max-width: 600px)`]: {
-            width: '90%'
+            width: '90%',
         },
-    }
-
-}))
+    },
+}));
 
 export default function Register() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const form = useForm({
         initialValues: {
             email: '',
-            name: '',
             password: '',
+            name: '',
         },
 
         validate: {
@@ -46,26 +33,29 @@ export default function Register() {
         },
     });
 
-    function login() {
-        navigate('/login')
+    const { classes } = useStyles();
+
+    async function handleRegister(data) {
+        try {
+            await AuthService.register(data); // Call backend to register user
+            navigate('/profile'); // Redirect to profile management page
+        } catch (e) {
+            alert('Registration failed');
+        }
     }
 
-    const { classes } = useStyles();
+    function navigateToLogin() {
+        navigate('/login'); // Redirect to login page
+    }
 
     return (
         <div className={classes.wrapper}>
             <Paper className={classes.paper} radius="md" p="xl" withBorder>
                 <Text size="lg" weight={500}>
-                    Register
+                    Register as Contestant
                 </Text>
 
-                <form onSubmit={form.onSubmit(async (data) => {
-                    await AuthService.register(data).then(() => {
-                        navigate("/login")
-                    }).catch(e => {
-                        alert("Something went wrong, check logs")
-                    })
-                 })}>
+                <form onSubmit={form.onSubmit(handleRegister)}>
                     <Stack>
                         <TextInput
                             required
@@ -73,7 +63,6 @@ export default function Register() {
                             value={form.values.name}
                             onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
                         />
-
                         <TextInput
                             required
                             label="Email"
@@ -81,7 +70,6 @@ export default function Register() {
                             onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
                             error={form.errors.email && 'Invalid email'}
                         />
-
                         <PasswordInput
                             required
                             label="Password"
@@ -92,21 +80,24 @@ export default function Register() {
                     </Stack>
 
                     <Group position="apart" mt="xl">
-                        <Anchor
-                            component="button"
-                            type="button"
-                            color="dimmed"
-                            onClick={() => login()}
-                            size="xs"
-                        >
-                            Aready have an account? Login
-                        </Anchor>
-                        <Button
-                            variant="gradient"
-                            gradient={{ from: 'red', to: 'yellow', deg: 60 }}
-                            type="submit">Register</Button>
+                        <Button variant="gradient" gradient={{ from: 'red', to: 'yellow', deg: 60 }} type="submit">
+                            Register
+                        </Button>
                     </Group>
                 </form>
+
+                {/* Option to navigate to login */}
+                <Group position="center" mt="md">
+                    <Anchor
+                        component="button"
+                        type="button"
+                        color="dimmed"
+                        onClick={navigateToLogin}
+                        size="xs"
+                    >
+                        Already have an account? Login
+                    </Anchor>
+                </Group>
             </Paper>
         </div>
     );

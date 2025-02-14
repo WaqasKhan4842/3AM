@@ -13,9 +13,13 @@
     "@mantine/core": "^5.1.1",
     "@mantine/form": "^5.2.5",
     "@mantine/hooks": "^5.1.1",
-    "axios": "^0.27.2",
+    "@react-oauth/google": "^0.12.1",
+    "axios": "^1.7.9",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-facebook": "^9.0.12",
+    "react-icons": "^5.4.0",
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
