@@ -1,6 +1,7 @@
 import Home from "./pages/home"
 import Login from "./pages/login"
 import Register from "./pages/register"
+import { ContestantDashboard } from "./pages/contestantDashboard.jsx";
 
 
 
@@ -9,7 +10,6 @@ import {
   Routes,
   Route
 } from "react-router-dom"
-
 
 function App() {
 
@@ -20,6 +20,8 @@ function App() {
         <Route path="/" element={<Home />} exact />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<ContestantDashboard />} />
+
 
       </Routes>
     </BrowserRouter>
