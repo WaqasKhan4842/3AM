@@ -1,10 +1,35 @@
-import { Card, Grid, Title, Text, Progress, Timeline, FileInput, Button } from '@mantine/core';
-import { IconMusic, IconUpload, IconCalendar} from '@tabler/icons-react';
+import { Card, Grid, Title, Text, Progress, Timeline, FileInput, Button, List } from '@mantine/core';
+import { IconMusic, IconUpload, IconCalendar, IconPlus, IconUser, IconClock } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export function ContestantDashboard() {
+    const navigate = useNavigate();
+    const [submissions, setSubmissions] = useState([
+        { round: 'Round 1 - Auditions', deadline: 'Jan 15, 2024', status: 'Submitted' },
+        { round: 'Round 2 - Cover Challenge', deadline: 'Feb 10, 2024', status: 'Pending' },
+        { round: 'Round 3 - Pop Classics', deadline: 'Feb 28, 2024', status: 'Pending' },
+    ]);
+
     return (
         <div className="container">
             <Title mb="lg" order={2}>My Competition Dashboard</Title>
+
+            <Button
+                leftIcon={<IconPlus size={16} />}
+                onClick={() => navigate('/competition-signup')}
+                mb="lg"
+            >
+                Sign Up for a Competition
+            </Button>
+
+            <Button
+                leftIcon={<IconUser size={16} />}
+                onClick={() => navigate('/profile-creation')}
+                mb="lg"
+            >
+                Create Profile
+            </Button>
 
             <Grid>
                 <Grid.Col span={4}>
@@ -39,6 +64,21 @@ export function ContestantDashboard() {
                         <Button mt="md" leftIcon={<IconUpload size={16} />}>
                             Submit Entry
                         </Button>
+                    </Card>
+                </Grid.Col>
+
+                <Grid.Col span={12}>
+                    <Card shadow="sm" mt="md">
+                        <Title order={4} mb="md"><IconClock size={20} /> Submission Deadlines & Status</Title>
+                        <List>
+                            {submissions.map((submission, index) => (
+                                <List.Item key={index}>
+                                    <Text weight={500}>{submission.round}</Text>
+                                    <Text size="sm" color="dimmed">Deadline: {submission.deadline}</Text>
+                                    <Text>Status: {submission.status}</Text>
+                                </List.Item>
+                            ))}
+                        </List>
                     </Card>
                 </Grid.Col>
             </Grid>
