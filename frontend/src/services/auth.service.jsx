@@ -1,23 +1,32 @@
-import axios from "axios"
+import axios from "axios";
 
 const AuthService = {
     login: async (data) => {
         try {
-            const res = await axios.post("http://localhost:4000/users/login", data)
-            return res.data
+            const res = await axios.post("http://localhost:3000/auth/login", data);
+            return res.data;
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     },
 
     register: async (data) => {
         try {
-           console.log(data)
-           await axios.post("http://localhost:4000/users", data)
+            console.log(data);
+            await axios.post("http://localhost:3000/auth/register", data);
         } catch (e) {
-            console.log(e)
-        } 
-    }
-}
+            console.log(e);
+        }
+    },
 
-export default AuthService
+    loginWithGoogle: async (tokenId) => {
+        try {
+            const res = await axios.post("http://localhost:3000/auth/google", { tokenId });
+            return res.data;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+};
+
+export default AuthService;
