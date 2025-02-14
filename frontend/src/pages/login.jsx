@@ -40,13 +40,18 @@ export default function Login() {
 
     const { classes } = useStyles();
 
-    const handleGoogleLogin = () => {
-        // Add your Google login logic here
-        alert('Google login clicked');
+    const handleGoogleLogin = async () => {
+        try {
+            // Redirect the user to the backend to handle Google OAuth
+            window.location.href = "http://localhost:3000/auth/google";
+        } catch (error) {
+            console.log(error);
+            alert('Error occurred during Google login');
+        }
     };
 
     const handleFacebookLogin = () => {
-        // Add your Facebook login logic here
+        // Add your Facebook login logic here (similar to Google login)
         alert('Facebook login clicked');
     };
 
@@ -59,12 +64,20 @@ export default function Login() {
 
                 <form onSubmit={form.onSubmit(async (data) => {
                     await AuthService.login(data).then((res) => {
-                        let user = JSON.stringify(res.user);
-                        window.localStorage.setItem("user", user);
+                        // Check if login was successful
+                        if (res.success) {
+                            // Save the token and user to localStorage
+                            let user = JSON.stringify(res.user);
+                            window.localStorage.setItem("user", user);
 
-                        let token = res.token;
-                        window.localStorage.setItem("token", token);
-                        navigate('/');
+                            let token = res.token;
+                            window.localStorage.setItem("token", token);
+
+                            // Redirect to the dashboard
+                            navigate('/dashboard');
+                        } else {
+                            alert(res.message || "Login failed");
+                        }
                     }).catch((e) => {
                         console.log(e);
                         alert("Wrong Password?");
@@ -102,13 +115,6 @@ export default function Login() {
                             variant="gradient"
                             gradient={{ from: 'red', to: 'yellow', deg: 60 }}
                             type="submit">Log In</Button>
-<Button
-    variant="gradient"
-    gradient={{ from: 'red', to: 'yellow', deg: 60 }}
-    onClick={() => navigate('/dashboard')}
->
-    Dashboard
-</Button>
                     </Group>
                 </form>
 
