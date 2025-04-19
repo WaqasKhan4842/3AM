@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    await UserController.createUser(req.body, (user) => {
+    await UserController.registerUser(req.body, (user) => {
       return res.json(user);
     });
   } catch (e) {

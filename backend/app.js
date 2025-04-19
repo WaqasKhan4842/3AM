@@ -5,13 +5,14 @@ const app = express();
 import errorHandler from "./middlewares/errorHandler.js";
 import notFound from "./middlewares/notFound.js";
 
+
 // import routes
-import users from "./routes/user.router.js";
+// import users from "./routes/authRoutes.js"
 import authRoutes from "./routes/authRoutes.js";
-import profileRoutes from "./routes/profile.router.js";
+import courseRoutes from "./routes/courseRoutes.js";
+
 
 // essentials
-
 import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
@@ -29,9 +30,10 @@ app.get("/", (req, res) => {
   res.send("Hello from express`");
 });
 
-app.use("/users", users);
+// app.use("/users", users);
 app.use("/auth",authRoutes )
-app.use("/profile", profileRoutes);
+app.use("/course",courseRoutes)
+
 
 
 app.use(notFound);
