@@ -1,14 +1,24 @@
 import { Course, Video, Transcript, ChatRoom } from "../models/mongoose-models.js";
 import mongoose from "mongoose";
 
+
+
 class CourseController {
   /**
-   * @desc Create a new course
-   */
-  static async createCourse(courseData, tutorId) {
+ * @desc Create a new course
+ */
+static async createCourse(courseData, tutorId) {
+    console.log("createCourse: Function execution started");
+  
     try {
+      console.log("createCourse: Received courseData:", courseData);
+      console.log("createCourse: Received tutorId:", tutorId);
+  
       // Validate that the user is a tutor (you might want to do this in middleware)
-      
+      if (!tutorId) {
+        throw new Error("Tutor ID is required to create a course");
+      }
+  
       const newCourse = new Course({
         title: courseData.title,
         description: courseData.description,
@@ -17,28 +27,35 @@ class CourseController {
         tutor: tutorId,
         category: courseData.category,
         tags: courseData.tags || [],
-        isPublished: courseData.isPublished || false
+        isPublished: courseData.isPublished || false,
       });
-
+  
+      console.log("createCourse: New course object created:", newCourse);
+  
       const savedCourse = await newCourse.save();
-      
+      console.log("createCourse: Course saved to database:", savedCourse);
+  
       // Create chat room for the course
+      console.log("createCourse: Creating chat room...");
       await ChatRoom.create({
         course: savedCourse._id,
         name: `Chat for ${savedCourse.title}`,
         description: `Discussion forum for ${savedCourse.title}`,
-        participants: [tutorId] // Initially just the tutor
+        participants: [tutorId], // Initially just the tutor
       });
-
+      console.log("createCourse: Chat room created successfully");
+  
       return {
         success: true,
         message: "Course created successfully",
-        course: savedCourse
+        course: savedCourse,
       };
     } catch (error) {
+      console.error("createCourse: Error occurred:", error.message);
       throw new Error(`Failed to create course: ${error.message}`);
     }
   }
+  
 
   /**
    * @desc Get all courses (with optional filtering)
