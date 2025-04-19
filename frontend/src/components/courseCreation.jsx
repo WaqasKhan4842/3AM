@@ -191,8 +191,8 @@ const CourseCreation = () => {
 
 
     return (
-        <div className="flex min-h-screen bg-gray-50">
-            <div className="flex-1 p-8 bg-white">
+        <div className="w-full min-h-screen bg-gray-50">
+            <div className="w-full p-8 bg-white">
                 <div className="flex justify-between items-center mb-8 border-b border-[#A7C4C2] pb-4">
                     <div>
                         <h1 className="text-2xl font-bold text-[#02010A]">Create New Course</h1>
@@ -225,7 +225,7 @@ const CourseCreation = () => {
                     </div>
                 </div>
 
-                <div className="max-w-5xl mx-auto">
+                <div className="w-full max-w-6xl mx-auto">
                     <form onSubmit={handleSubmit}>
                         {/* Basic Course Info Section */}
                         <div className="bg-white p-6 rounded-lg border border-[#A7C4C2] mb-6">
@@ -245,7 +245,7 @@ const CourseCreation = () => {
                                             name="title"
                                             value={courseData.title}
                                             onChange={handleInputChange}
-                                            className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
+                                            className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-[#02010A] bg-[#F7FDFC] leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
                                             placeholder="E.g., Mastering Web Development with React"
                                             required
                                         />
@@ -260,7 +260,7 @@ const CourseCreation = () => {
                                             name="description"
                                             value={courseData.description}
                                             onChange={handleInputChange}
-                                            className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9] h-32"
+                                            className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-[#02010A] bg-[#F7FDFC] leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9] h-32"
                                             placeholder="Provide a detailed description of your course"
                                             required
                                         />
@@ -279,7 +279,7 @@ const CourseCreation = () => {
                                             name="category"
                                             value={courseData.category}
                                             onChange={handleInputChange}
-                                            className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
+                                            className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-[#02010A] bg-[#F7FDFC] leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
                                             required
                                         >
                                             <option value="">Select a category</option>
@@ -307,7 +307,7 @@ const CourseCreation = () => {
                                                 name="price"
                                                 value={courseData.price}
                                                 onChange={handleInputChange}
-                                                className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 pl-8 pr-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
+                                                className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 pl-8 pr-3 text-[#02010A] bg-[#F7FDFC] leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
                                                 min="0"
                                                 step="0.01"
                                                 placeholder="0.00"
@@ -325,7 +325,7 @@ const CourseCreation = () => {
                                                 id="isPublished"
                                                 checked={courseData.isPublished}
                                                 onChange={(e) => setCourseData({...courseData, isPublished: e.target.checked})}
-                                                className="mr-2 h-5 w-5"
+                                                className="mr-2 h-5 w-5 accent-[#97EFE9]"
                                             />
                                             <div>
                                                 <label htmlFor="isPublished" className="text-gray-700 font-medium">
@@ -349,7 +349,7 @@ const CourseCreation = () => {
                                         type="text"
                                         value={currentTag}
                                         onChange={(e) => setCurrentTag(e.target.value)}
-                                        className="shadow appearance-none border border-[#A7C4C2] rounded-l w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
+                                        className="shadow appearance-none border border-[#A7C4C2] rounded-l w-full py-2 px-3 text-[#02010A] bg-[#F7FDFC] leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
                                         placeholder="Add a tag"
                                     />
                                     <button
@@ -452,7 +452,7 @@ const CourseCreation = () => {
                             {courseData.videos.length > 0 && (
                                 <div className="space-y-4">
                                     {courseData.videos.map((video, index) => (
-                                        <div key={index} className="border border-[#A7C4C2] rounded p-4 hover:border-[#97EFE9] transition-colors">
+                                        <div key={index} className="border border-[#A7C4C2] rounded p-4 hover:border-[#97EFE9] transition-colors bg-[#F7FDFC]">
                                             <div className="flex justify-between items-center mb-3">
                                                 <div className="flex items-center">
                                                     <div className="mr-3 text-[#FE4A49] bg-[#FE4A49] bg-opacity-10 w-8 h-8 rounded-full flex items-center justify-center">
@@ -495,7 +495,7 @@ const CourseCreation = () => {
                                                         type="text"
                                                         value={video.title}
                                                         onChange={(e) => handleVideoTitleChange(index, e.target.value)}
-                                                        className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
+                                                        className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-[#02010A] bg-white leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
                                                         placeholder="Video title"
                                                         required
                                                     />
@@ -508,7 +508,7 @@ const CourseCreation = () => {
                                                         type="text"
                                                         value={video.description}
                                                         onChange={(e) => handleVideoDescriptionChange(index, e.target.value)}
-                                                        className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
+                                                        className="shadow appearance-none border border-[#A7C4C2] rounded w-full py-2 px-3 text-[#02010A] bg-white leading-tight focus:outline-none focus:shadow-outline focus:border-[#97EFE9]"
                                                         placeholder="Short description (optional)"
                                                     />
                                                 </div>
